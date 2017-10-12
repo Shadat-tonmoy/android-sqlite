@@ -154,7 +154,7 @@
             android:layout_marginTop="15dp"
             android:ems="10"
             android:inputType="textPersonName"
-            android:hint="Enter New Name"
+            android:hint="Enter a New Name"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
 
