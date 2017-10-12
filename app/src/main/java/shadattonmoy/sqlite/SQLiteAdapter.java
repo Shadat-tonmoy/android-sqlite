@@ -14,20 +14,16 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class SQLiteAdapter {
 
     SQLiteHelper sqLiteHelper;
-    public SQLiteAdapter(Context context)
-    {
+    public SQLiteAdapter(Context context) {
         sqLiteHelper = new SQLiteHelper(context);
     }
 
-    public long insertData(String name,String regNo)
-    {
-
+    public long insertData(String name, String regNo) {
         SQLiteDatabase db = sqLiteHelper.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(sqLiteHelper.NAME,name);
-        contentValues.put(sqLiteHelper.REG_NO,regNo);
-        long id = db.insert(sqLiteHelper.TABLE_NAME,null,contentValues);
-        return id;
+        contentValues.put(SQLiteHelper.NAME, name);
+        contentValues.put(SQLiteHelper.REG_NO,regNo);
+        return db.insert(SQLiteHelper.TABLE_NAME, null, contentValues);
     }
 
     public String getAllData()
@@ -35,13 +31,13 @@ public class SQLiteAdapter {
         StringBuffer stringBuffer = new StringBuffer();
         String detail = "";
         SQLiteDatabase db = sqLiteHelper.getWritableDatabase();
-        String[] columns = {sqLiteHelper.UID,sqLiteHelper.NAME,sqLiteHelper.REG_NO};
-        Cursor cursor = db.query(sqLiteHelper.TABLE_NAME,columns,null,null,null,null,null);
-        while (cursor.moveToNext())
-        {
-            int idIndex = cursor.getColumnIndex(sqLiteHelper.UID);
-            int nameIndex = cursor.getColumnIndex(sqLiteHelper.NAME);
-            int regNoIndex = cursor.getColumnIndex(sqLiteHelper.REG_NO);
+        String[] columns = {SQLiteHelper.UID,SQLiteHelper.NAME,SQLiteHelper.REG_NO};
+        Cursor cursor = db.query(SQLiteHelper.TABLE_NAME,columns,null,null,null,null,null);
+
+        while (cursor.moveToNext()) {
+            int idIndex = cursor.getColumnIndex(SQLiteHelper.UID);
+            int nameIndex = cursor.getColumnIndex(SQLiteHelper.NAME);
+            int regNoIndex = cursor.getColumnIndex(SQLiteHelper.REG_NO);
             int id = cursor.getInt(0);
             String name = cursor.getString(1);
             String regNo = cursor.getString(2);
@@ -117,8 +113,6 @@ public class SQLiteAdapter {
                 new Message(context,e.getMessage());
                 e.printStackTrace();
             }
-
-
         }
 
         @Override
@@ -131,8 +125,6 @@ public class SQLiteAdapter {
                 new Message(context,e.getMessage());
                 e.printStackTrace();
             }
-
         }
-
     }
 }
